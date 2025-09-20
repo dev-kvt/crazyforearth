@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1><%= title %></h1>
+    <form action="/soil" method="get">
+        <label for="lat">Latitude:</label>
+        <input type="text" name="lat" id="lat" required>
+        <label for="lon">Longitude:</label>
+        <input type="text" name="lon" id="lon" required>
+        <button type="submit">Get Soil Data</button>
+    </form>
+</body>
+</html>
