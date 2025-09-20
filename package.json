@@ -1,14 +1,22 @@
 {
   "name": "soilgrid",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "",
+  "type": "module",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "author": "sanguinius",
   "license": "ISC",
-  "description": "",
   "dependencies": {
-    "express": "^5.1.0"
+    "dotenv": "^17.2.2",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }

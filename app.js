@@ -17,10 +17,18 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
+//register routes
+app.use("/", indexRoutes);   // <-- Home route
+app.use("/soil", soilRoutes); // <-- Soil API route
+
+
 //error handlers
 app.use((err, req, res, next) => {
-console.error(err);
-res.status(500).render("error", { message: "Internal Server Error" });
+    console.error(err);
+    res.status(500).render("error", { 
+        message: "Internal Server Error", 
+        title: "Crazy For Earth"
+    });
 });
 // Start server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

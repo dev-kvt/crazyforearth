@@ -1,0 +1,96 @@
+<!-- views/pages/result.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+    <style>
+        .soil-data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .soil-data-table th, .soil-data-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        .soil-data-table th {
+            background-color: #f5f5f5;
+        }
+        .soil-data-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        .coordinates {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        .btn-search-again {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .btn-search-again:hover {
+            background-color: #0056b3;
+        }
+        .error-message {
+            color: #721c24;
+            background-color: #f8d7da;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <%- include('../partials/nav') %>
+
+    <div class="container">
+        <h1 class="mt-4 mb-3"><%= title %></h1>
+        <div class="coordinates">
+            <p>Latitude: <strong><%= lat || 'N/A' %></strong>, Longitude: <strong><%= lon || 'N/A' %></strong></p>
+        </div>
+
+        <% if (soilData && soilData.properties && Object.keys(soilData.properties).length > 0) { %>
+            <table class="soil-data-table">
+                <thead>
+                    <tr>
+                        <th>Property</th>
+                        <th>Depth</th>
+                        <th>Mean Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% try { %>
+                        <% Object.keys(soilData.properties).forEach(prop => { %>
+                            <% const depths = soilData.properties[prop].M || {}; %>
+                            <% Object.keys(depths).forEach(depth => { %>
+                                <tr>
+                                    <td><%= prop %></td>
+                                    <td><%= depth %></td>
+                                    <td><%= depths[depth] || 'N/A' %></td>
+                                </tr>
+                            <% }) %>
+                        <% }) %>
+                    <% } catch (error) { %>
+                        <tr>
+                            <td colspan="3" class="error-message">Error processing soil data</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <div class="error-message">No soil data available for these coordinates.</div>
+        <% } %>
+
+        <a href="/" class="btn-search-again">Search Again</a>
+    </div>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>
